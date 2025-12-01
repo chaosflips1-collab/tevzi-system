@@ -13,7 +13,6 @@ app.get("/", (req, res) => {
   res.send("Tevzi API çalışıyor 🎉");
 });
 
-// Personel listesi
 app.get("/personel", async (req, res) => {
   try {
     const data = await prisma.personel.findMany();
