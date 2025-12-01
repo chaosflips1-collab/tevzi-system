@@ -1,13 +1,10 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { PrismaClient } = require("@prisma/client");
+const prisma = require("./prisma");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-
-const prisma = new PrismaClient();
 
 app.get("/", (req, res) => {
   res.send("Tevzi API çalışıyor 🎉");
