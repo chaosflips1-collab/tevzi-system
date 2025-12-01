@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Personnel {
+  id          Int          @id @default(autoincrement())
+  name        String
+  role        String
+  assignments Assignment[]
+}
+
+model Shift {
+  id          Int          @id @default(autoincrement())
+  name        String
+  startTime   DateTime
+  endTime     DateTime
+  assignments Assignment[]
+}
+
+model Assignment {
+  id          Int        @id @default(autoincrement())
+  date        DateTime
+
+  personnel   Personnel  @relation(fields: [personnelId], references: [id])
+  personnelId Int
+
+  shift       Shift      @relation(fields: [shiftId], references: [id])
+  shiftId     Int
+
+  @@unique([date, personnelId, shiftId])
+}
