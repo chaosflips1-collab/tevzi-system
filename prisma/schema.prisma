@@ -4,32 +4,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Personnel {
-  id          Int          @id @default(autoincrement())
-  name        String
-  role        String
-  assignments Assignment[]
-}
-
-model Shift {
-  id          Int          @id @default(autoincrement())
-  name        String
-  startTime   DateTime
-  endTime     DateTime
-  assignments Assignment[]
-}
-
-model Assignment {
-  id          Int        @id @default(autoincrement())
-  date        DateTime
-
-  personnel   Personnel  @relation(fields: [personnelId], references: [id])
-  personnelId Int
-
-  shift       Shift      @relation(fields: [shiftId], references: [id])
-  shiftId     Int
-
-  @@unique([date, personnelId, shiftId])
+model Person {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  role      String
+  createdAt DateTime @default(now())
 }
